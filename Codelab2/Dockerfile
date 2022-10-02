@@ -5,7 +5,7 @@ RUN pip3 install jupyter
 ARG username=Aniketh
 ENV username $username
 RUN useradd -m $username
-RUN mkdir /home/$username/notebooksdock
+RUN mkdir /home/$username/notebooks
 RUN wget https://raw.githubusercontent.com/anikeths/Applied-Cloud-Computing/main/Codelab2/Caltrain_program_l.ipynb -P ./home/$username/notebooks/
 RUN wget https://raw.githubusercontent.com/anikeths/Applied-Cloud-Computing/main/Codelab2/Requirements.txt -P ./home/$username/notebooks/
 RUN chown $username:$username ./home/$username/notebooks/*
