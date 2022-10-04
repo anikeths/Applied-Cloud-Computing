@@ -12,3 +12,6 @@ RUN pip3 install -r ./home/$JUPYTER_USER/notebooks/Requirements.txt
 
 WORKDIR /home/${JUPYTER_USER}/notebooks/
 EXPOSE 8888
+
+USER ${JUPYTER_USER}
+CMD jupyter notebook --ip=0.0.0.0 --port 8888 --allow root
