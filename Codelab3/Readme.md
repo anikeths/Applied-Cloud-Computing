@@ -21,6 +21,18 @@ django-admin startproject app
 Change the database entries in the settings.py file :
 'USER' = 'root', 'PASSWORD' = pass, 'HOST' = mydb, 'NAME' = web, 'PORT' = 5432
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'web',
+        'USER': 'root',
+        'PASSWORD': 'pass',
+        'HOST': 'mydb',
+        'PORT': 5432,
+    }
+}
+
+
 Migrate
 root@fcbb5da5d62a:/app# python /app/app/manage.py migrate
 
