@@ -13,7 +13,8 @@ RUN chown $username:$username ./home/$username/notebooks/*
 RUN chmod u+w ./home/$username/notebooks/*
 RUN pip3 install -r ./home/$username/notebooks/Requirements.txt
 # RUN su $username
-USER ${username}
+USER ${username} 
+#different user - not the root user
 WORKDIR /home/${username}/notebooks/
 
 EXPOSE 8888
