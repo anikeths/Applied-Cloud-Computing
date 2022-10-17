@@ -20,8 +20,10 @@ def food_dictionary():
 #displays the random food pick on localhost:5000/api/random/
 @app.route('/api/random',methods= ['GET'])
 def randres():
-       key1 = random.choice(list(food))
-       return str(key1) + ':' + str(food[key1])
+     res = key, val = random.choice(list(food.items()))
+     return jsonify({"Food: ": key, "Price ($): ": val})
+#      key1 = random.choice(list(food))
+#      return str(key1) + ':' + str(food[key1])
 
 if __name__ == "__main__":
 #      app.run('0.0.0.0', port=5000,debug=True)
