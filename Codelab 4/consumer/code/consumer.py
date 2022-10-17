@@ -14,12 +14,17 @@ def randres():
 #communicates with the API container and writes what it is getting from api TO food.html template file and renders it.
 @app.route('/',methods= ['GET'])
 def index():
-    res= requests.get('http://' + str(os.environ.get("API_HOST")) + ':' + str(os.environ.get("API_PORT")) + "/" + str(os.environ.get("API_ENDPOINT")))
-#     res = requests.get('http://api:5000/api/random')
+    host = os.environ.get('API_HOST')
+    port = os.environ.get('API_PORT')
+    endpoint = os.environ.get('API_ENDPOINT')
+    url = f'http://{host}:{port}/{endpoint}'
+    res = requests.get(url)
+#   res = requests.get('http://api:5000/api/random')
+#   res= requests.get('http://' + str(os.environ.get("API_HOST")) + ':' + str(os.environ.get("API_PORT")) + "/" + str(os.environ.get("API_ENDPOINT")))
     food_item = res.text
     return render_template('food.html', food=food_item)
 
 if __name__ == "__main__":
 #     app.run(debug=True, host='0.0.0.0', port=80)
     port = os.environ.get('CONSUMER_PORT')
-    app.run('0.0.0.0', port = port,debug=True)
+    app.run('0.0.0.0', port=port,debug=True)
