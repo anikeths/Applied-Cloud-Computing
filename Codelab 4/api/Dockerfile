@@ -9,7 +9,8 @@ RUN pip3 install -r requirements.txt
 
 VOLUME /app
 WORKDIR /app
-EXPOSE 5000
+# EXPOSE 5000
+EXPOSE ${API_PORT}
 ENTRYPOINT [ "python3" ]
 CMD ["api.py" ]
 # CMD ["python3"]
