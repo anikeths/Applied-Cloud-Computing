@@ -41,7 +41,8 @@ def week5():
     res =list(cursor.fetchone())
     #cursor.close()
     # conn.close()
-    return jsonify({"We recommend": res[0],"price": res[1]})
+#     return jsonify({"We recommend": res[0],"price": res[1]})
+    return jsonify({res[0]:res[1]})
         
 @app.route('/')
 def landingpage():
