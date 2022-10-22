@@ -11,6 +11,6 @@ VOLUME /app
 WORKDIR /app
 EXPOSE ${API_PORT}
 ENTRYPOINT [ "python3" ]
-CMD ["api1.py" ]
+CMD ["api.py" ]
 # CMD ["python3"]
 # CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
