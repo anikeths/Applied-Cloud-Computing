@@ -1,0 +1,5 @@
+flask
+jsonify
+psycopg2-binary
+flask_sqlalchemy
+
