@@ -10,14 +10,20 @@ To add a new item to the menu -- go to the dba page!
 Go to consumer page
 Happy meal on your way!
 
-
 Ports used:
 5050 for the dba
 80 for the consumer
 5000 for the api
 5432 for the db
 
+Postgres admin :  admin@email.com ,  password: admin
 
+hostname for db : db , username:postgres, password:postgres,
+
+When running the docker-compose.yml file for the first time, build the docker compose file in order to avoid psycopg2 error.
+docke-compose up -- build
+
+Later on, dokcer-compose up
 
 https://stackoverflow.com/questions/37259584/postgres-shuts-down-immediately-when-started-with-docker-compose/71315084#71315084
 
