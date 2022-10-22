@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+    consumer:
+        build: ./consumer/
+        hostname: consumer
+        environment:
+          - API_HOST=${API_HOST}   
+          - API_PORT=${API_PORT}   
+          - API_ENDPOINT=${API_ENDPOINT} 
+          - CONSUMER_PORT=${CONSUMER_PORT}  
+        volumes:
+          - ./consumer/code:/app
+        ports:
+#           - "80:80"
+          - ${CONSUMER_PORT}:${CONSUMER_PORT}
+        depends_on:
+          - api
+    db:
+        image: postgres:12
+        hostname: db
+        environment:
+          - POSTGRES_USER=${POSTGRES_USER}
+          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+          - POSTGRES_DB=${POSTGRES_DB}
+          - DB_HOST=${DB_HOST}
+          - DB_PORT=${DB_PORT}
+        ports:
+          - "${DB_PORT}:${DB_PORT}"
+        volumes:
+          - data:/var/lib/postgresql
+          - ./db/data:/docker-entrypoint-initdb.d/
+        healthcheck:
+          #CHANGE 1: this command checks if the database is ready, right on the source db server
+          test: [ "CMD-SHELL", "pg_isready" ]
+          interval: 5s
+          timeout: 5s
+          retries: 5
+
+    dba:
+        image: dpage/pgadmin4:6
+        hostname: dba
+        environment:
+          - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+          - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+          - PGADMIN_LISTEN_PORT=${PGADMIN_LISTEN_PORT}
+        volumes:
+          - pgadmin:/var/lib/pgadmin
+        ports:
+          - "${PGADMIN_LISTEN_PORT}:${PGADMIN_LISTEN_PORT}"
+        depends_on:
+          - db
+    api:
+        build: ./api/
+        hostname: api
+        volumes:
+          - ./api/code:/app
+        environment:
+          - API_PORT=${API_PORT}
+          - API_ENDPOINT=${API_ENDPOINT}
+          - DB_HOST=${DB_HOST}
+          - DB_PORT=${DB_PORT}
+          - POSTGRES_USER=${POSTGRES_USER}
+          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+          - POSTGRES_DB=${POSTGRES_DB}
+        ports:
+          - ${API_PORT}:${API_PORT}
+        depends_on:
+       #CHANGE 2: it prevents issuing a request while the server is starting to depend on the healthy status of postgres-db 
+          db:
+            condition: service_healthy
+
+
+volumes:
+  data:
+  pgadmin:
