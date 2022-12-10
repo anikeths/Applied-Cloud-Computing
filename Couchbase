@@ -1,0 +1,12 @@
+#pull the official docker couchbase image
+
+
+docker pull couchbase:enterprise-6.6.2
+
+
+# run the container
+
+docker run -d --name cbdb -o 8091-8094 : 8091-8094 -p 11210:11210
+
+
+# check localhost:8091 
